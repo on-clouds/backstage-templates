@@ -1,0 +1,51 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: create-podtato-head-template
+  title: Create PodTatoHead Template
+  description: Create a new PodTatoHead Tenant
+spec:
+  owner: thomas.schuetz@t-sc.eu 
+  type: website
+  parameters:
+    - title: Provide some simple information
+      required:
+        - tenant_id
+        - customer
+      properties:
+        tenant_id:
+          title: Name
+          type: string
+          description: Name of the Tenant
+          ui:field: EntityNamePicker
+        description:
+          title: Description
+          type: string
+          description: Describe the Tenant
+        owner:
+          title: Customer
+          type: string
+          description: Customer Name
+          ui:field: EntityNamePicker
+      
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+  steps:
+    - id: template
+      name: Fetch Skeleton + Template
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          tenant_id: ${{ parameters.tenant_id }}
+          description: ${{ parameters.description }}
+          destination: ${{ parameters.repoUrl | parseRepoUrl }}
