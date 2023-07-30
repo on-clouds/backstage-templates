@@ -11,21 +11,11 @@ spec:
     - title: Provide some simple information
       required:
         - tenant_id
-        - customer
       properties:
         tenant_id:
           title: Name
           type: string
           description: Name of the Tenant
-          ui:field: EntityNamePicker
-        description:
-          title: Description
-          type: string
-          description: Describe the Tenant
-        owner:
-          title: Customer
-          type: string
-          description: Customer Name
           ui:field: EntityNamePicker
       
     - title: Choose a location
@@ -47,5 +37,4 @@ spec:
         url: ./skeleton
         values:
           tenant_id: ${{ parameters.tenant_id }}
-          description: ${{ parameters.description }}
           destination: ${{ parameters.repoUrl | parseRepoUrl }}
